@@ -1,0 +1,32 @@
+{
+	"name": "tr_git_to_adls",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Stopped",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "Git_to_Adls",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Day",
+				"interval": 1,
+				"startTime": "2025-02-21T11:45:00",
+				"timeZone": "India Standard Time",
+				"schedule": {
+					"minutes": [
+						17
+					],
+					"hours": [
+						12
+					]
+				}
+			}
+		}
+	}
+}

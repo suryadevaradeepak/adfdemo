@@ -1,0 +1,85 @@
+{
+	"name": "PL_Validation_Acitivity",
+	"properties": {
+		"activities": [
+			{
+				"name": "Validation",
+				"type": "Validation",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"dataset": {
+						"referenceName": "DS_Validation",
+						"type": "DatasetReference",
+						"parameters": {
+							"FileName": {
+								"value": "@pipeline().parameters.FileName",
+								"type": "Expression"
+							}
+						}
+					},
+					"timeout": "0.00:00:30",
+					"sleep": 10
+				}
+			},
+			{
+				"name": "Set variable",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "Validation",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "Success",
+					"value": "Succeeded "
+				}
+			},
+			{
+				"name": "Set variable2",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "Validation",
+						"dependencyConditions": [
+							"Failed"
+						]
+					}
+				],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "Fail",
+					"value": "Failure"
+				}
+			}
+		],
+		"parameters": {
+			"FileName": {
+				"type": "string"
+			}
+		},
+		"variables": {
+			"Success": {
+				"type": "String"
+			},
+			"Fail": {
+				"type": "String"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2025-02-24T08:50:48Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}
